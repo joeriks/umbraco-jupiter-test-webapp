@@ -1,0 +1,20 @@
+﻿@using Umbraco.Cms.Web.Security
+@model IEnumerable<Umbraco.Cms.Web.Model.BackOffice.ApplicationTrayModel>
+
+<div id="tray">
+	<ul class="clearfix">
+	@foreach(var t in Model) {
+		<li><a data-app-alias="@t.Alias.ToLower()"   
+                data-tree-url="@Url.Encode(t.TreeModel.TreeUrl)"
+                data-dashboard-url="@Url.Encode(t.DashboardUrl)"
+                href="@string.Concat("#a=", t.Alias.ToLower())" 
+                class='@(t.IconType == Umbraco.Cms.Web.Model.BackOffice.IconType.Sprite ? t.Icon : "no-sprite")'>
+                @if (t.IconType != Umbraco.Cms.Web.Model.BackOffice.IconType.Sprite)
+                {
+                    <img alt="@t.Name" src="@(Url.GetAppIconsFolder() + "/" + t.Icon)" />
+                }
+                <span>@t.Name</span>
+            </a></li>
+ }
+	</ul>
+</div>
